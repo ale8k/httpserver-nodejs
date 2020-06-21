@@ -22,6 +22,10 @@ class ServerWrapper {
                 // Find content length
                 // Parse content (body) out of headersPreParse
                 // Complete header object
+                const contentType = headersPreParse.filter(header => {
+                    return header[0] === "Content-Type";
+                })[0][1].trim();
+                console.log(contentType);
                 
 
             });
