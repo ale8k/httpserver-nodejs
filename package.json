@@ -1,0 +1,22 @@
+{
+    "name": "httpserver-nodejs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "dev": "nodemon",
+        "start:dev": "ts-node src/Server.ts",
+        "start": "node dist/Server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^14.0.13",
+        "nodemon": "^2.0.4",
+        "ts-node": "^8.10.2",
+        "tslint": "^6.1.2",
+        "typescript": "^3.9.5"
+    }
+}
