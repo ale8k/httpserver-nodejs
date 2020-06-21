@@ -17,8 +17,12 @@ class ServerWrapper {
                 let methodAndEndpoint = headersPreParse[0][0]
                     .replace(/( HTTP\/1.1)/, "")
                     .split(" ");
-                console.log(headersPreParse);
-                console.log(methodAndEndpoint);
+
+                // Find content type
+                // Find content length
+                // Parse content (body) out of headersPreParse
+                // Complete header object
+                
 
             });
         });
