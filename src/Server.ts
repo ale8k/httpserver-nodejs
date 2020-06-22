@@ -1,5 +1,4 @@
-import net, { Server, Socket } from "net";
-import { cursorTo } from "readline";
+import { Server, Socket } from "net";
 
 /**
  * Supports only HTTP 1.1
@@ -12,7 +11,7 @@ class ServerWrapper {
     constructor() {
         this._server = new Server();
         this._server.on("connection", (socket: Socket) => {
-            socket.on("data", (data) => {
+            socket.on("data", (data: Buffer) => {
                 // Grab request and split headers down into an array
                 let decoded = data
                     .toString()
@@ -31,9 +30,22 @@ class ServerWrapper {
                         .split(" ")
                         .map((val, i) => (i === 0 ? ["Method", val] : ["URI-Path", val])) as string[][]
                 );
-                console.log(decoded, "final");
-                // Now we need to reduce any nested array with more than 2 elements,
-                // as elements > 1 are a single value for this header
+                // Turn into objects
+                const decodedObjArr = decoded
+                    .map((arr) => arr.map((str) => str.trim()))
+                    .map((arr) => {
+                        if (arr[0] === "Host") {
+                            return ["Host", `${arr[1]}:${arr[2]}`];
+                        } else {
+                            return arr;
+                        }
+                    })
+                    .map(([key, value]) => {
+                        return { [key]: value };
+                    });
+                // Finalize it into a single object
+                let final = {};
+                Object.assign(final, ...decodedObjArr);
             });
         });
     }
